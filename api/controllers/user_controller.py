@@ -21,7 +21,7 @@ def user_add():
     return jsonify({'message': 'User added successfully'}), 201
 
 @user_controller.route("/user/login", methods=['POST'])
-def user_add():
+def user_login():
     
     required_params = ['email', 'password']
     if not all(param in request.json for param in required_params):
@@ -30,10 +30,9 @@ def user_add():
     email = request.json['email']
     password = request.json['password']
 
-    user = User(Helper.get_new_id(), name, email, password)
-    user.add()
+    user = User.login(email, password)
 
-    return jsonify({'message': 'User added successfully'}), 201
+    return jsonify(user), 200
 
 @user_controller.route("/user/list", methods=['GET'])
 def user_list():

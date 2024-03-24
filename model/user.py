@@ -1,3 +1,4 @@
+import bcrypt
 from model.core.user_setup import UserSetup
 from infrastructure.database.base_setup import BaseSetup
 from model.common.entity import Entity
@@ -13,10 +14,14 @@ class User(Entity):
         self.password = password
         
     def add(self):
+    
+        self.password = Helper.hash_password(self.password)
+    
         BaseSetup.insert(USER_TABLE, self)
 
     def list():
         return UserSetup.view()
 
+    @staticmethod
     def login(email: str, password : str):
-        return UserSetup.view()
+        return UserSetup.login(email, password)
