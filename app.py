@@ -2,7 +2,13 @@ from flask import Flask, jsonify
 from api.controllers.user_controller import user_controller
 from flask_cors import CORS
 from flask_swagger_ui import get_swaggerui_blueprint
-import json
+from infrastructure.database.constants import *
+from infrastructure.database.setup import Setup
+import json, os
+
+
+
+
 
 app = Flask(__name__)
 
@@ -26,5 +32,9 @@ app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
 def swagger():
     with open('swagger.json', 'r') as f:
         return jsonify(json.load(f))
+    
+
+if not os.path.isfile(DB_NAME):
+    Setup.start_seed()
 
 app.run()
