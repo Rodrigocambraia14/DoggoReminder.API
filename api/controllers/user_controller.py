@@ -9,7 +9,7 @@ def user_add():
     required_params = ['name', 'email', 'password']
 
     if not all(param in request.json for param in required_params):
-        return jsonify({'error': 'Missing required parameters'}), 400
+        return jsonify({'error': 'Alguns parâmetros não foram preenchidos corretamente!'}), 400
 
     name = request.json['name']
     email = request.json['email']

@@ -26,21 +26,21 @@
           {
             "name": "name",
             "in": "formData",
-            "description": "The name of the user",
+            "description": "O nome do usuário",
             "required": true,
             "type": "string"
           },
           {
             "name": "email",
             "in": "formData",
-            "description": "The email of the user",
+            "description": "O e-mail do usuário",
             "required": true,
             "type": "string"
           },
           {
             "name": "password",
             "in": "formData",
-            "description": "The password of the user",
+            "description": "A senha do usuário",
             "required": true,
             "type": "string"
           }
@@ -48,6 +48,17 @@
         "responses": {
           "200": {
             "description": "Successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request response - Alguns parâmetros não foram preenchidos corretamente!",
             "schema": {
               "type": "object",
               "properties": {
