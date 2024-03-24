@@ -17,3 +17,6 @@ class User(Entity):
 
     def list():
         return UserSetup.view()
+
+    def login(email: str, password : str):
+        return UserSetup.view()

@@ -24,3 +24,22 @@ class UserSetup(BaseSetup):
         BaseSetup.close(conn)
         
         return users
+    
+    def login(email : str, password : str):
+        conn = BaseSetup.connect()
+        
+        cur = conn.cursor()
+        
+        cur.execute("SELECT * FROM {} WHERE email = ? AND password = ?".format(USER_TABLE), (email, password))
+        
+        rows = cur.fetchall()
+        
+        users = [] 
+
+        for row in rows:
+            user = UserDTO(row[0], row[1], row[2], row[3])
+            users.append(user.to_dict())
+            
+        BaseSetup.close(conn)
+        
+        return users

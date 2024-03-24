@@ -20,6 +20,21 @@ def user_add():
 
     return jsonify({'message': 'User added successfully'}), 201
 
+@user_controller.route("/user/login", methods=['POST'])
+def user_add():
+    
+    required_params = ['email', 'password']
+    if not all(param in request.json for param in required_params):
+        return jsonify({'error': 'Alguns parametros nao foram preenchidos corretamente!'}), 400
+
+    email = request.json['email']
+    password = request.json['password']
+
+    user = User(Helper.get_new_id(), name, email, password)
+    user.add()
+
+    return jsonify({'message': 'User added successfully'}), 201
+
 @user_controller.route("/user/list", methods=['GET'])
 def user_list():
     
