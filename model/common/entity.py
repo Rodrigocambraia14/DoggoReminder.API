@@ -1,5 +1,7 @@
 from abc import ABCMeta, abstractmethod
 
+#obriga as classes que herdarem de Entity, a implementarem um construtor
+
 class EntityMeta(ABCMeta):
     def __init__(cls, name, bases, dct):
         if not hasattr(cls, '_abstract') or not cls._abstract:

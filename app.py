@@ -1,9 +1,11 @@
-from flask import Flask, jsonify
+# -*- coding: utf-8 -*-
+
+from flask import Flask, jsonify, Response
 from api.controllers.user_controller import user_controller
 from flask_cors import CORS
 from flask_swagger_ui import get_swaggerui_blueprint
 from infrastructure.database.constants import *
-from infrastructure.database.setup import Setup
+from infrastructure.database.base_setup import BaseSetup
 import json, os
 
 
@@ -12,7 +14,7 @@ import json, os
 
 app = Flask(__name__)
 
-app.register_blueprint(user_controller)
+app.register_blueprint(user_controller, url_prefix='/api')
 
 CORS(app)
 
@@ -30,11 +32,12 @@ app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
 
 @app.route('/swagger.json')
 def swagger():
-    with open('swagger.json', 'r') as f:
-        return jsonify(json.load(f))
+    with open('swagger.json', 'r', encoding='utf-8') as f:
+        data = json.load(f)
+        return jsonify(data)
     
 
 if not os.path.isfile(DB_NAME):
-    Setup.start_seed()
+    BaseSetup.start_seed()
 
 app.run()

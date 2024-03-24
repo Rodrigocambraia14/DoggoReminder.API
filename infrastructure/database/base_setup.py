@@ -1,13 +1,14 @@
+from abc import ABC, abstractmethod
 import sqlite3, datetime
 from infrastructure.database.constants import *
 
-class Setup:
+class BaseSetup(ABC):
 
     @staticmethod
     def start_seed():
         conn = sqlite3.connect(DB_NAME)
         cur = conn.cursor()
-        cur.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT, email TEXT, password TEXT)")
+        cur.execute("CREATE TABLE IF NOT EXISTS users (id TEXT PRIMARY KEY, name TEXT, email TEXT, password TEXT)")
         conn.commit()
         conn.close()
         #TODO - Finish the seed
@@ -18,7 +19,7 @@ class Setup:
 
     @staticmethod
     def insert(table_name : str, obj):
-        conn = sqlite3.connect(Setup.DB_NAME)
+        conn = sqlite3.connect(DB_NAME)
         cur = conn.cursor()
         # Assuming obj attributes correspond to table columns
         placeholders = ','.join(['?'] * len(obj.__dict__.keys()))
@@ -30,22 +31,23 @@ class Setup:
         conn.commit()
         conn.close()
         
+    @abstractmethod
+    def view(self):
+        pass
+    
     @staticmethod
-    def view(table_name: str, entity_class: type):
+    def connect():
         conn = sqlite3.connect(DB_NAME)
-        cur = conn.cursor()
-        cur.execute(f"SELECT * FROM {table_name}")
-        rows = cur.fetchall()
-        
-        entities = []
-
-        for row in rows:
-            entity = entity_class(*row)  # Assuming the constructor of entity_class takes positional arguments
-            entities.append(entity)
-            
+        return conn
+   
+    @staticmethod
+    def close(conn: sqlite3.Connection):
         conn.close()
         
-        return entities
+    @staticmethod
+    def commitAndClose(conn: sqlite3.Connection):
+        conn.commit()
+        conn.close()
 
     @staticmethod
     def update(book):

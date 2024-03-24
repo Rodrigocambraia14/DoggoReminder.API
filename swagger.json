@@ -17,37 +17,40 @@
   ],
   "paths": {
     "/user/add": {
-      "post": { // Change from "get" to "post" method
+      "post": {
         "summary": "Cria um novo usuário na base de dados",
         "produces": [
           "application/json"
         ],
-        "parameters": [ // Define parameters here
+        "parameters": [
           {
-            "name": "name",
-            "in": "formData",
-            "description": "O nome do usuário",
+            "name": "user",
+            "in": "body",
+            "description": "User object containing name, email, and password",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "email",
-            "in": "formData",
-            "description": "O e-mail do usuário",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "password",
-            "in": "formData",
-            "description": "A senha do usuário",
-            "required": true,
-            "type": "string"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "O nome do usuário"
+                },
+                "email": {
+                  "type": "string",
+                  "description": "O e-mail do usuário"
+                },
+                "password": {
+                  "type": "string",
+                  "description": "A senha do usuário"
+                }
+              },
+              "required": [ "name", "email", "password" ]
+            }
           }
         ],
         "responses": {
-          "200": {
-            "description": "Successful response.",
+          "201": {
+            "description": "Created - Successful response.",
             "schema": {
               "type": "object",
               "properties": {
@@ -59,6 +62,29 @@
           },
           "400": {
             "description": "Bad request response - Alguns parâmetros não foram preenchidos corretamente!",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/list": {
+      "get": {
+        "summary": "Lista todos os usuários da base de dados",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response.",
             "schema": {
               "type": "object",
               "properties": {

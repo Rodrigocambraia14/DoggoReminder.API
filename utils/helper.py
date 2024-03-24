@@ -1,6 +1,6 @@
-import random
+import uuid
 
 class Helper:
     
     def get_new_id():
-        return random.getrandbits(28)
+        return str(uuid.uuid4())
