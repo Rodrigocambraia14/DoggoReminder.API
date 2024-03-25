@@ -5,7 +5,7 @@
     "description": "API que disponibiliza rotas de consulta, criação e edição de usuários, cães e rotinas de alimentação, consumida pela aplicação DoggoReminderUI .",
     "version": "1.0"
   },
-  "basePath": "/api",
+  "basePath": "http://127.0.0.1:5000/api",
   "schemes": [
     "http"
   ],
