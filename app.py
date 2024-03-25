@@ -2,6 +2,7 @@
 from flask import Flask, jsonify, Response
 from api.controllers.user_controller import user_controller
 from api.controllers.dog_controller import dog_controller
+from api.controllers.food_routine_controller import food_routine_controller
 from flask_cors import CORS
 from flask_swagger_ui import get_swaggerui_blueprint
 from infrastructure.database.constants import *
@@ -12,6 +13,7 @@ app = Flask(__name__)
 
 app.register_blueprint(user_controller, url_prefix='/api')
 app.register_blueprint(dog_controller, url_prefix='/api')
+app.register_blueprint(food_routine_controller, url_prefix='/api')
 
 CORS(app)
 

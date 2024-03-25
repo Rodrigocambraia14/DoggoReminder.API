@@ -29,6 +29,27 @@ class BaseSetup(ABC):
         FOREIGN KEY (user_id) REFERENCES users(id)
     )
 """)
+        
+        cur.execute("""
+    CREATE TABLE IF NOT EXISTS food_routines (
+        id TEXT PRIMARY KEY,
+        name TEXT,
+        portions INTEGER,
+        dog_id TEXT,
+        FOREIGN KEY (dog_id) REFERENCES dogs(id)
+    )
+""")
+        
+        cur.execute("""
+    CREATE TABLE IF NOT EXISTS portion_details (
+        id TEXT PRIMARY KEY,
+        name TEXT,
+        grams INTEGER,
+        feed_time TEXT,
+        food_routine_id TEXT,            
+        FOREIGN KEY (food_routine_id) REFERENCES food_routines(id)
+    )
+""")
         conn.commit()
         conn.close()
         #TODO - Finish the seed
