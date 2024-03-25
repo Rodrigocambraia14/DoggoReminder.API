@@ -53,4 +53,4 @@ class UserSetup(BaseSetup):
             
         BaseSetup.close(conn)
         
-        return user
+        return user['id']

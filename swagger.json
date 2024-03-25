@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "DoggoReminder API",
-    "description": "API que disponibiliza rotas de consulta, criação e edição de usuários, cachorros e rotinas, consumida pela aplicação DoggoReminderUI .",
+    "description": "API que disponibiliza rotas de consulta, criação e edição de usuários, cães e rotinas de alimentação, consumida pela aplicação DoggoReminderUI .",
     "version": "1.0"
   },
   "basePath": "/api",
@@ -98,7 +98,7 @@
                   "description": "A senha do usuário"
                 }
               },
-              "required": ["email", "password" ]
+              "required": [ "email", "password" ]
             }
           }
         ],
@@ -135,6 +135,109 @@
           "application/json"
         ],
         "parameters": [
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dog/add": {
+      "post": {
+        "summary": "Cria um novo cão na base de dados",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "dog",
+            "in": "body",
+            "description": "Informações a respeito do animal como cor, idade, raça, gênero, nome, etc.",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "O nome do animal"
+                },
+                "color": {
+                  "type": "string",
+                  "description": "A cor do animal"
+                },
+                "age": {
+                  "type": "integer",
+                  "description": "A idade do animal"
+                },
+                "race": {
+                  "type": "string",
+                  "description": "A raça do animal"
+                },
+                "gender": {
+                  "type": "string",
+                  "description": "O gênero do animal [M] ou [F]"
+                },
+                "user_id": {
+                  "type": "string",
+                  "description": "O Id do usuário autenticado (dono do animal)"
+                }
+              },
+              "required": [ "name", "color", "age", "race", "gender", "user_id" ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created - Successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request response - Alguns parâmetros não foram preenchidos corretamente!",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dog/list/<user_id>": {
+      "get": {
+        "summary": "Lista todos os cães do usuário",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "Id (chave primária) do usuário autenticado.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "O Id do usuário"
+            }
+          }
         ],
         "responses": {
           "200": {

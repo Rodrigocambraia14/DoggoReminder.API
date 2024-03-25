@@ -8,7 +8,27 @@ class BaseSetup(ABC):
     def start_seed():
         conn = sqlite3.connect(DB_NAME)
         cur = conn.cursor()
-        cur.execute("CREATE TABLE IF NOT EXISTS users (id TEXT PRIMARY KEY, name TEXT, email TEXT, password TEXT)")
+        cur.execute("""
+    CREATE TABLE IF NOT EXISTS users (
+        id TEXT PRIMARY KEY,
+        name TEXT,
+        email TEXT,
+        password TEXT
+    )
+""")
+
+        cur.execute("""
+    CREATE TABLE IF NOT EXISTS dogs (
+        id TEXT PRIMARY KEY,
+        name TEXT,
+        race TEXT,
+        age INTEGER,
+        gender TEXT,
+        color TEXT,
+        user_id TEXT,
+        FOREIGN KEY (user_id) REFERENCES users(id)
+    )
+""")
         conn.commit()
         conn.close()
         #TODO - Finish the seed

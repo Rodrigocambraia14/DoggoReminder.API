@@ -1,6 +1,6 @@
 from utils.helper import Helper
 from flask import Blueprint, jsonify, request
-from model.user import User
+from model.entities.user import User
 
 user_controller = Blueprint('user_controller', __name__)
 
@@ -18,7 +18,7 @@ def user_add():
     user = User(Helper.get_new_id(), name, email, password)
     user.add()
 
-    return jsonify({'message': 'User added successfully'}), 201
+    return jsonify({'message': 'Usuario adicionado com sucesso.'}), 201
 
 @user_controller.route("/user/login", methods=['POST'])
 def user_login():
