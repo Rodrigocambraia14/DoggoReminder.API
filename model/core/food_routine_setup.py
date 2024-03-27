@@ -64,7 +64,7 @@ class FoodRoutineSetup(BaseSetup):
                 
 
                 if portion_detail.feed_time == current_time:
-                    message = f"{dog_name} esta com fome! Coloque {portion_detail.grams} gramas de alimento as {portion_detail.feed_time}!"
+                    message = f"DOGGO ALERT! {dog_name} esta com fome, Coloque {portion_detail.grams} gramas de racao as {portion_detail.feed_time}h!"
                     print(message)  
             
         BaseSetup.close(conn)

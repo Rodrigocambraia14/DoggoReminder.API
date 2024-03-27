@@ -5,7 +5,7 @@ from infrastructure.database.constants import *
 class BaseSetup(ABC):
 
     @staticmethod
-    def start_seed():
+    def create_tables():
         conn = sqlite3.connect(DB_NAME)
         cur = conn.cursor()
         cur.execute("""
@@ -50,14 +50,9 @@ class BaseSetup(ABC):
         FOREIGN KEY (food_routine_id) REFERENCES {}(id)
     )
 """.format(PORTION_DETAIL_TABLE, FOOD_ROUTINE_TABLE))
-        conn.commit()
-        conn.close()
-        #TODO - Finish the seed
-
-        # for i in books:
-        #     bk = Book(get_new_id(), i['available'], i['title'], i['timestamp'])
-        #     insert(bk)
-
+        
+       
+        
     @staticmethod
     def insert(table_name : str, obj):
         conn = sqlite3.connect(DB_NAME)
