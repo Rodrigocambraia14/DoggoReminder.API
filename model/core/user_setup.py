@@ -7,6 +7,7 @@ import sqlite3, datetime, bcrypt
 
 class UserSetup(BaseSetup):
     
+    @staticmethod
     def view():
         conn = BaseSetup.connect()
         
@@ -26,6 +27,7 @@ class UserSetup(BaseSetup):
         
         return users
     
+    @staticmethod
     def login(email : str, password : str):
         
         conn = BaseSetup.connect()

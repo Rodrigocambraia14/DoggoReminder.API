@@ -18,7 +18,7 @@ class BaseSetup(ABC):
 """)
 
         cur.execute("""
-    CREATE TABLE IF NOT EXISTS dogs (
+    CREATE TABLE IF NOT EXISTS {} (
         id TEXT PRIMARY KEY,
         name TEXT,
         race TEXT,
@@ -26,30 +26,30 @@ class BaseSetup(ABC):
         gender TEXT,
         color TEXT,
         user_id TEXT,
-        FOREIGN KEY (user_id) REFERENCES users(id)
+        FOREIGN KEY (user_id) REFERENCES {}(id)
     )
-""")
+""".format(DOG_TABLE, USER_TABLE))
         
         cur.execute("""
-    CREATE TABLE IF NOT EXISTS food_routines (
+    CREATE TABLE IF NOT EXISTS {} (
         id TEXT PRIMARY KEY,
         name TEXT,
         portions INTEGER,
         dog_id TEXT,
-        FOREIGN KEY (dog_id) REFERENCES dogs(id)
+        FOREIGN KEY (dog_id) REFERENCES {}(id)
     )
-""")
+""".format(FOOD_ROUTINE_TABLE, DOG_TABLE))
         
         cur.execute("""
-    CREATE TABLE IF NOT EXISTS portion_details (
+    CREATE TABLE IF NOT EXISTS {} (
         id TEXT PRIMARY KEY,
         name TEXT,
         grams INTEGER,
         feed_time TEXT,
         food_routine_id TEXT,            
-        FOREIGN KEY (food_routine_id) REFERENCES food_routines(id)
+        FOREIGN KEY (food_routine_id) REFERENCES {}(id)
     )
-""")
+""".format(PORTION_DETAIL_TABLE, FOOD_ROUTINE_TABLE))
         conn.commit()
         conn.close()
         #TODO - Finish the seed

@@ -4,6 +4,7 @@ from model.DTOs.portion_detail_dto import PortionDetailDTO
 
 class PortionDetailSetup(BaseSetup):
     
+    @staticmethod
     def view(food_routine_id: str):
         conn = BaseSetup.connect()
         

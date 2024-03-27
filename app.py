@@ -7,7 +7,8 @@ from flask_cors import CORS
 from flask_swagger_ui import get_swaggerui_blueprint
 from infrastructure.database.constants import *
 from infrastructure.database.base_setup import BaseSetup
-import json, os
+from model.core.food_routine_setup import FoodRoutineSetup
+import json, os, schedule, threading
 
 app = Flask(__name__)
 
@@ -38,5 +39,16 @@ def swagger():
 
 if not os.path.isfile(DB_NAME):
     BaseSetup.start_seed()
+
+schedule.every().minute.do(FoodRoutineSetup.throw_notifications)
+
+# Function to run the scheduler in a background thread
+def run_scheduler():
+    while True:
+        schedule.run_pending()
+
+# Start the scheduler in a background thread
+scheduler_thread = threading.Thread(target=run_scheduler)
+scheduler_thread.start()
 
 app.run()

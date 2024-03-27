@@ -8,6 +8,7 @@ import sqlite3, datetime, bcrypt
 
 class DogSetup(BaseSetup):
     
+    @staticmethod
     def view(user_id: str):
         conn = BaseSetup.connect()
         
