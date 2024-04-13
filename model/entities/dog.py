@@ -23,3 +23,7 @@ class Dog(Entity):
 
     def list(user_id: str):
         return DogSetup.view(user_id)
+    
+    @staticmethod
+    def delete(dog_id: str):
+        return DogSetup.delete(dog_id)

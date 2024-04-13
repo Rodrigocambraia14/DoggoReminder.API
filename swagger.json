@@ -5,7 +5,7 @@
     "description": "API que disponibiliza rotas de consulta, criação e edição de usuários, cães e rotinas de alimentação, consumida pela aplicação DoggoReminderUI .",
     "version": "1.0"
   },
-  "basePath": "http://127.0.0.1:5000/api",
+  "basePath": "/api",
   "schemes": [
     "http"
   ],
@@ -221,7 +221,7 @@
         }
       }
     },
-    "/dog/list/<user_id>": {
+    "/dog/list": {
       "get": {
         "summary": "Lista todos os cães do usuário",
         "produces": [
@@ -230,7 +230,7 @@
         "parameters": [
           {
             "name": "user_id",
-            "in": "path",
+            "in": "query",
             "description": "Id (chave primária) do usuário autenticado.",
             "required": true,
             "schema": {
@@ -253,6 +253,55 @@
           }
         }
       }
+    },
+    "/dog/delete": {
+      "post": {
+        "summary": "Remove um cão da base de dados",
+        "produces": [ "application/json" ],
+        "parameters": [
+          {
+            "name": "dog_id",
+            "in": "body",
+            "description": "O ID do cão a ser removido",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "dog_id": {
+                  "type": "string",
+                  "description": "O ID do cão"
+                }
+              },
+              "required": [ "dog_id" ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response - O cão foi removido com sucesso.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request response - Alguns parâmetros não foram preenchidos corretamente!",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
     }
+
   }
 }

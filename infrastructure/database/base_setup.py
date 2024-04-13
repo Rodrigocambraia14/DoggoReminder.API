@@ -93,18 +93,3 @@ class BaseSetup(ABC):
         conn.commit()
         conn.close()
 
-    @staticmethod
-    def delete(theId):
-        conn = sqlite3.connect(DB_NAME)
-        cur = conn.cursor()
-        cur.execute("DELETE FROM books WHERE id=?", (theId,))
-        conn.commit()
-        conn.close()
-
-    @staticmethod
-    def delete_all():
-        conn = sqlite3.connect(DB_NAME)
-        cur = conn.cursor()
-        cur.execute("DELETE FROM books")
-        conn.commit()
-        conn.close()

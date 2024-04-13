@@ -27,4 +27,18 @@ class DogSetup(BaseSetup):
         BaseSetup.close(conn)
         
         return dogs
+
+    @staticmethod
+    def delete(dog_id: str):
+        conn = BaseSetup.connect()
+        
+        cur = conn.cursor()
+        
+        cur.execute("DELETE FROM {} WHERE id = ?".format(DOG_TABLE), (dog_id,))
+
+        conn.commit()
+        
+        BaseSetup.close(conn)
+        
+        return
    
