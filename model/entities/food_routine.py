@@ -16,5 +16,5 @@ class FoodRoutine(Entity):
     def add(self):
         BaseSetup.insert(FOOD_ROUTINE_TABLE, self)
 
-    def list(dog_id: str):
-        return FoodRoutineSetup.view(dog_id)
+    def list(user_id: str):
+        return FoodRoutineSetup.view(user_id)

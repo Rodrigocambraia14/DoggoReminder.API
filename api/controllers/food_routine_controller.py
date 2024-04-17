@@ -29,16 +29,14 @@ def food_routine_add():
 
 
 
-@food_routine_controller.route("/food_routine/list/<dog_id>", methods=['GET'])
+@food_routine_controller.route("/food_routine/list", methods=['GET'])
 def food_routine_list():
     
-    dog_id = request.args.get('dog_id')
+    user_id = request.args.get('user_id')
 
-    if not dog_id:
-        return jsonify({'error': 'Id do pet e obrigatorio.'}), 400
+    if not user_id:
+        return jsonify({'error': 'Id do usuario e obrigatorio.'}), 400
 
-    dog_id = request.json['dog_id']
-    
-    food_routines = FoodRoutine.list(dog_id)
+    food_routines = FoodRoutine.list(user_id)
     
     return jsonify(food_routines), 200
