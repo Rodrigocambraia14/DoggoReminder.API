@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "DoggoReminder API",
-    "description": "API que disponibiliza rotas de consulta, criação e edição de usuários, cães e rotinas de alimentação, consumida pela aplicação DoggoReminderUI .",
+    "description": "API que disponibiliza rotas de consulta, criação e edição de usuários, aumigos e rotinas de alimentação, consumida pela aplicação DoggoReminderUI .",
     "version": "1.0"
   },
   "basePath": "/api",
@@ -153,7 +153,7 @@
     },
     "/dog/add": {
       "post": {
-        "summary": "Cria um novo cão na base de dados",
+        "summary": "Cria um novo aumigo na base de dados",
         "produces": [
           "application/json"
         ],
@@ -223,7 +223,7 @@
     },
     "/dog/list": {
       "get": {
-        "summary": "Lista todos os cães do usuário",
+        "summary": "Lista todos os aumigos do usuário",
         "produces": [
           "application/json"
         ],
@@ -257,45 +257,45 @@
     {
       "/dog/update": {
         "put": {
-          "summary": "Atualiza as informações de um cão",
-          "description": "Esta rota permite atualizar as informações de um cão existente.",
-          "tags": [ "Cão" ],
+          "summary": "Atualiza as informações de um aumigo",
+          "description": "Esta rota permite atualizar as informações de um aumigo existente.",
+          "tags": [ "aumigo" ],
           "parameters": [
             {
               "name": "body",
               "in": "body",
-              "description": "Dados do cão a serem atualizados",
+              "description": "Dados do aumigo a serem atualizados",
               "required": true,
               "schema": {
                 "type": "object",
                 "properties": {
                   "name": {
                     "type": "string",
-                    "description": "Nome do cão"
+                    "description": "Nome do aumigo"
                   },
                   "race": {
                     "type": "string",
-                    "description": "Raça do cão"
+                    "description": "Raça do aumigo"
                   },
                   "age": {
                     "type": "integer",
-                    "description": "Idade do cão em anos"
+                    "description": "Idade do aumigo em anos"
                   },
                   "gender": {
                     "type": "string",
-                    "description": "Gênero do cão (Macho/Fêmea)"
+                    "description": "Gênero do aumigo (Macho/Fêmea)"
                   },
                   "color": {
                     "type": "string",
-                    "description": "Cor do cão"
+                    "description": "Cor do aumigo"
                   },
                   "user_id": {
                     "type": "integer",
-                    "description": "ID do usuário proprietário do cão"
+                    "description": "ID do usuário proprietário do aumigo"
                   },
                   "dog_id": {
                     "type": "integer",
-                    "description": "ID único do cão a ser atualizado"
+                    "description": "ID único do aumigo a ser atualizado"
                   }
                 }
               }
@@ -332,20 +332,20 @@
     },
     "/dog/delete": {
       "post": {
-        "summary": "Remove um cão da base de dados",
+        "summary": "Remove um aumigo da base de dados",
         "produces": [ "application/json" ],
         "parameters": [
           {
             "name": "dog_id",
             "in": "body",
-            "description": "O ID do cão a ser removido",
+            "description": "O ID do aumigo a ser removido",
             "required": true,
             "schema": {
               "type": "object",
               "properties": {
                 "dog_id": {
                   "type": "string",
-                  "description": "O ID do cão"
+                  "description": "O ID do aumigo"
                 }
               },
               "required": [ "dog_id" ]
@@ -354,7 +354,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful response - O cão foi removido com sucesso.",
+            "description": "Successful response - O aumigo foi removido com sucesso.",
             "schema": {
               "type": "object",
               "properties": {

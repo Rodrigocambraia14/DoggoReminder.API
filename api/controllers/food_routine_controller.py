@@ -22,7 +22,7 @@ def food_routine_add():
     food_routine.add()
     
     for item in portion_details:
-        portion_detail = PortionDetail(Helper.get_new_id(), item.name, item.grams, item.feed_time, food_routine.id)
+        portion_detail = PortionDetail(Helper.get_new_id(), item['name'], item['grams'], item['feed_time'], food_routine.id)
         portion_detail.add()
 
     return jsonify({'message': 'Rotina adicionada com sucesso.'}), 201
