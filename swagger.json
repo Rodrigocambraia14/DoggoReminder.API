@@ -254,6 +254,82 @@
         }
       }
     },
+    {
+      "/dog/update": {
+        "put": {
+          "summary": "Atualiza as informações de um cão",
+          "description": "Esta rota permite atualizar as informações de um cão existente.",
+          "tags": [ "Cão" ],
+          "parameters": [
+            {
+              "name": "body",
+              "in": "body",
+              "description": "Dados do cão a serem atualizados",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Nome do cão"
+                  },
+                  "race": {
+                    "type": "string",
+                    "description": "Raça do cão"
+                  },
+                  "age": {
+                    "type": "integer",
+                    "description": "Idade do cão em anos"
+                  },
+                  "gender": {
+                    "type": "string",
+                    "description": "Gênero do cão (Macho/Fêmea)"
+                  },
+                  "color": {
+                    "type": "string",
+                    "description": "Cor do cão"
+                  },
+                  "user_id": {
+                    "type": "integer",
+                    "description": "ID do usuário proprietário do cão"
+                  },
+                  "dog_id": {
+                    "type": "integer",
+                    "description": "ID único do cão a ser atualizado"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string",
+                    "description": "Mensagem de sucesso"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "string",
+                    "description": "Descrição do erro"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/dog/delete": {
       "post": {
         "summary": "Remove um cão da base de dados",

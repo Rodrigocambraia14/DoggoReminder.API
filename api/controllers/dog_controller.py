@@ -26,6 +26,27 @@ def dog_add():
 
     return jsonify({'message': 'Pet adicionado com sucesso.'}), 201
 
+@dog_controller.route("/dog/update", methods=['PUT'])
+def dog_update():
+    
+    required_params = ['name', 'race', 'age', 'gender', 'color', 'user_id', 'dog_id']
+    if not all(param in request.json for param in required_params):
+        return jsonify({'error': 'Alguns parametros nao foram preenchidos corretamente!'}), 400
+
+    name = request.json['name']
+    race = request.json['race']
+    age = request.json['age']
+    gender = request.json['gender']
+    color = request.json['color']
+    user_id = request.json['user_id']
+    dog_id = request.json['dog_id']
+    
+    dog = Dog(dog_id, name, race, age, gender, color, user_id)
+    
+    dog.update()
+
+    return jsonify({'message': 'Aumigo atualizado com sucesso.'}), 200
+
 @dog_controller.route("/dog/delete", methods=['POST'])
 def dog_delete():
     

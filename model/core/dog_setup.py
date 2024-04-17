@@ -41,4 +41,22 @@ class DogSetup(BaseSetup):
         BaseSetup.close(conn)
         
         return
+    
+    @staticmethod
+    def update(updated_dog: DogDTO):
+        conn = BaseSetup.connect()
+    
+        cur = conn.cursor()
+    
+        query = "UPDATE {} SET name = ?, race = ?, age = ?, gender = ?, color = ? WHERE id = ?".format(DOG_TABLE)
+    
+        values = (updated_dog.name, updated_dog.race, updated_dog.age, updated_dog.gender, updated_dog.color, updated_dog.id)
+    
+        cur.execute(query, values)
+
+        conn.commit()
+    
+        BaseSetup.close(conn)
+    
+        return
    
