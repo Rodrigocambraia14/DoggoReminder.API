@@ -2,6 +2,7 @@ from infrastructure.database.base_setup import BaseSetup
 from infrastructure.database.constants import *
 from model.DTOs.dog_dto import DogDTO
 from model.DTOs.food_routine_dto import FoodRoutineDTO
+from model.DTOs.notification_dto import NotificationDTO
 from model.DTOs.portion_detail_dto import PortionDetailDTO
 from utils.helper import Helper
 from typing import List
@@ -11,7 +12,7 @@ from datetime import datetime
 class FoodRoutineSetup(BaseSetup):
     
     @staticmethod
-    def view(user_id: str):
+    def view(user_id: str) -> List[FoodRoutineDTO]:
         conn = BaseSetup.connect()
         cur = conn.cursor()
 
@@ -50,7 +51,7 @@ class FoodRoutineSetup(BaseSetup):
         return food_routines
    
     @staticmethod
-    def throw_notifications():
+    def get_notifications(user_id:str) -> NotificationDTO:
         
         current_time = datetime.now().strftime('%H:%M')  
 
@@ -59,10 +60,12 @@ class FoodRoutineSetup(BaseSetup):
         cur = conn.cursor()
         
         cur.execute("""
-    SELECT {}.*, {}.name AS dog_name
+    SELECT {}.id, {}.name, {}.portions, {}.dog_id, {}.name AS dog_name
     FROM {} 
     INNER JOIN {} ON {}.dog_id = {}.id
-""".format(FOOD_ROUTINE_TABLE, DOG_TABLE, FOOD_ROUTINE_TABLE, DOG_TABLE, FOOD_ROUTINE_TABLE, DOG_TABLE))
+    WHERE {}.user_id = ?                
+""".format(FOOD_ROUTINE_TABLE, FOOD_ROUTINE_TABLE, FOOD_ROUTINE_TABLE,FOOD_ROUTINE_TABLE, DOG_TABLE, FOOD_ROUTINE_TABLE, DOG_TABLE, FOOD_ROUTINE_TABLE, DOG_TABLE, DOG_TABLE), (user_id,))
+
         
         rows = cur.fetchall()
         
@@ -85,8 +88,8 @@ class FoodRoutineSetup(BaseSetup):
 
                 if portion_detail.feed_time == current_time:
                     message = f"{dog_name} esta com fome, Coloque {portion_detail.grams} gramas de racao as {portion_detail.feed_time}h!"
-                    print(message)  
+                    return NotificationDTO(message, True).to_dict()
             
         BaseSetup.close(conn)
         
-        return
+        return NotificationDTO('', False).to_dict() 

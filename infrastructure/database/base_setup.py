@@ -57,7 +57,7 @@ class BaseSetup(ABC):
     def insert(table_name : str, obj):
         conn = sqlite3.connect(DB_NAME)
         cur = conn.cursor()
-        # Assuming obj attributes correspond to table columns
+        # Assumindo que atributos do objeto  correspondem às colunas das tabelas
         placeholders = ','.join(['?'] * len(obj.__dict__.keys()))
         columns = ','.join(obj.__dict__.keys())
         values = tuple(obj.__dict__.values())
@@ -82,14 +82,6 @@ class BaseSetup(ABC):
         
     @staticmethod
     def commitAndClose(conn: sqlite3.Connection):
-        conn.commit()
-        conn.close()
-
-    @staticmethod
-    def update(book):
-        conn = sqlite3.connect(DB_NAME)
-        cur = conn.cursor()
-        cur.execute("UPDATE books SET available=?, title=? WHERE id=?", (book.available, book.title, book.id))
         conn.commit()
         conn.close()
 

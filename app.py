@@ -43,15 +43,4 @@ if not os.path.isfile(DB_NAME):
     BaseSetup.create_tables()
     Seed.run_database_seeding()
     
-schedule.every().minute.do(FoodRoutineSetup.throw_notifications)
-
-# Function to run the scheduler in a background thread
-def run_scheduler():
-    while True:
-        schedule.run_pending()
-
-# Start the scheduler in a background thread
-scheduler_thread = threading.Thread(target=run_scheduler)
-scheduler_thread.start()
-
 app.run()

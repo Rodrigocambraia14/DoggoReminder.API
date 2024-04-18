@@ -40,3 +40,15 @@ def food_routine_list():
     food_routines = FoodRoutine.list(user_id)
     
     return jsonify(food_routines), 200
+
+@food_routine_controller.route("/food_routine/get_notifications", methods=['GET'])
+def food_routine_get_notifications():
+    
+    user_id = request.args.get('user_id')
+
+    if not user_id:
+        return jsonify({'error': 'Id do usuario e obrigatorio.'}), 400
+
+    notifications = FoodRoutine.get_notifications(user_id)
+    
+    return jsonify(notifications), 200
