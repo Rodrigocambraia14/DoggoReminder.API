@@ -19,6 +19,7 @@
     "/user/add": {
       "post": {
         "summary": "Cria um novo usuário na base de dados",
+        "tags": [ "user" ],
         "produces": [
           "application/json"
         ],
@@ -77,6 +78,7 @@
     "/user/login": {
       "post": {
         "summary": "Valida e realiza login do usuário cadastrado",
+        "tags": [ "user" ],
         "produces": [
           "application/json"
         ],
@@ -128,32 +130,10 @@
         }
       }
     },
-    "/user/list": {
-      "get": {
-        "summary": "Lista todos os usuários da base de dados",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful response.",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "message": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/dog/add": {
       "post": {
         "summary": "Cria um novo aumigo na base de dados",
+        "tags": [ "dog" ],
         "produces": [
           "application/json"
         ],
@@ -224,6 +204,7 @@
     "/dog/list": {
       "get": {
         "summary": "Lista todos os aumigos do usuário",
+        "tags": [ "dog" ],
         "produces": [
           "application/json"
         ],
@@ -254,75 +235,73 @@
         }
       }
     },
-    {
-      "/dog/update": {
-        "put": {
-          "summary": "Atualiza as informações de um aumigo",
-          "description": "Esta rota permite atualizar as informações de um aumigo existente.",
-          "tags": [ "aumigo" ],
-          "parameters": [
-            {
-              "name": "body",
-              "in": "body",
-              "description": "Dados do aumigo a serem atualizados",
-              "required": true,
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string",
-                    "description": "Nome do aumigo"
-                  },
-                  "race": {
-                    "type": "string",
-                    "description": "Raça do aumigo"
-                  },
-                  "age": {
-                    "type": "integer",
-                    "description": "Idade do aumigo em anos"
-                  },
-                  "gender": {
-                    "type": "string",
-                    "description": "Gênero do aumigo (Macho/Fêmea)"
-                  },
-                  "color": {
-                    "type": "string",
-                    "description": "Cor do aumigo"
-                  },
-                  "user_id": {
-                    "type": "integer",
-                    "description": "ID do usuário proprietário do aumigo"
-                  },
-                  "dog_id": {
-                    "type": "integer",
-                    "description": "ID único do aumigo a ser atualizado"
-                  }
+    "/dog/update": {
+      "put": {
+        "summary": "Atualiza as informações de um aumigo",
+        "description": "Esta rota permite atualizar as informações de um aumigo existente.",
+        "tags": [ "dog" ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Dados do aumigo a serem atualizados",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Nome do aumigo"
+                },
+                "race": {
+                  "type": "string",
+                  "description": "Raça do aumigo"
+                },
+                "age": {
+                  "type": "integer",
+                  "description": "Idade do aumigo em anos"
+                },
+                "gender": {
+                  "type": "string",
+                  "description": "Gênero do aumigo (Macho/Fêmea)"
+                },
+                "color": {
+                  "type": "string",
+                  "description": "Cor do aumigo"
+                },
+                "user_id": {
+                  "type": "integer",
+                  "description": "ID do usuário proprietário do aumigo"
+                },
+                "dog_id": {
+                  "type": "integer",
+                  "description": "ID único do aumigo a ser atualizado"
                 }
               }
             }
-          ],
-          "responses": {
-            "200": {
-              "description": "OK",
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "message": {
-                    "type": "string",
-                    "description": "Mensagem de sucesso"
-                  }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Mensagem de sucesso"
                 }
               }
-            },
-            "400": {
-              "description": "Bad Request",
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "error": {
-                    "type": "string",
-                    "description": "Descrição do erro"
-                  }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "description": "Descrição do erro"
                 }
               }
             }
@@ -334,6 +313,7 @@
       "post": {
         "summary": "Remove um aumigo da base de dados",
         "produces": [ "application/json" ],
+        "tags": [ "dog" ],
         "parameters": [
           {
             "name": "dog_id",
@@ -377,7 +357,192 @@
           }
         }
       }
+    },
+    "/food_routine/get_notifications": {
+      "get": {
+        "summary": "Obter notificações de rotinas alimentares",
+        "description": "Retorna as notificações de rotinas alimentares para o usuário especificado.",
+        "tags": [ "food routines" ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "ID do usuário para o qual deseja-se obter as notificações",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação bem-sucedida. Retorna as notificações de rotinas alimentares.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FoodRoutineNotificationDTO"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Requisição inválida. O ID do usuário é obrigatório."
+          }
+        }
+      }
+    },
+    "/food_routine/list": {
+      "get": {
+        "summary": "Listar rotinas",
+        "description": "Retorna a lista de rotinas de alimentação de acordo com o usuário especificado.",
+        "tags": [ "food routines" ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "ID do usuário para o qual deseja-se obter as rotinas",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operação bem-sucedida. Retorna a lista de rotinas do usuário autenticado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FoodRoutineDTO"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Requisição inválida. O ID do usuário é obrigatório."
+          }
+        }
+      }
+    },
+    "/food_routine/add": {
+      "post": {
+        "summary": "Adicionar rotina de alimentação para um aumigo",
+        "description": "Adiciona uma nova rotina alimentar de acordo com o usuário especificado.",
+        "tags": [ "food routines" ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddFoodRoutineRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Rotina adicionada com sucesso."
+          },
+          "400": {
+            "description": "Requisição inválida. Alguns parâmetros não foram preenchidos corretamente."
+          }
+        }
+      }
     }
-
+  },
+  "tags": [
+    {
+      "name": "dog",
+      "description": "Operações relacionadas a aumigos"
+    },
+    {
+      "name": "user",
+      "description": "Operações relacionadas a usuários"
+    },
+    {
+      "name": "food routines",
+      "description": "Operações relacionadas a rotinas de alimentação"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "FoodRoutineNotificationDTO": {
+        "type": "object",
+        "properties": {
+          "notification_id": {
+            "type": "string"
+          },
+          "user_id": {
+            "type": "string"
+          },
+          "dog_id": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "time": {
+            "type": "string"
+          }
+        }
+      },
+      "FoodRoutineDTO": {
+        "type": "object",
+        "properties": {
+          "routine_id": {
+            "type": "string"
+          },
+          "user_id": {
+            "type": "string"
+          },
+          "dog_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "portions": {
+            "type": "integer"
+          }
+        }
+      },
+      "AddFoodRoutineRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "portions": {
+            "type": "integer"
+          },
+          "dog_id": {
+            "type": "string"
+          },
+          "portion_details": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "grams": {
+                  "type": "integer"
+                },
+                "feed_time": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }

@@ -19,9 +19,6 @@ class User(Entity):
     
         BaseSetup.insert(USER_TABLE, self)
 
-    def list():
-        return UserSetup.view()
-
     @staticmethod
     def login(email: str, password : str):
         return UserSetup.login(email, password)

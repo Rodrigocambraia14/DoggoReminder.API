@@ -33,11 +33,3 @@ def user_login():
     user = User.login(email, password)
 
     return jsonify(user), 200
-
-@user_controller.route("/user/list", methods=['GET'])
-def user_list():
-    
-    
-    users = User.list()
-    
-    return jsonify(users), 200
