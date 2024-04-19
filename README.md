@@ -42,6 +42,21 @@ Esta é uma API em Python Flask que permite aos usuários registrar seus aumigos
 
 6. Acesse a documentação Swagger em seu navegador, geralmente em `http://localhost:5000/swagger`, para visualizar e testar os endpoints disponíveis.
 
+## Requirements
+
+bcrypt==4.1.2
+blinker==1.7.0
+click==8.1.7
+colorama==0.4.6
+Flask==3.0.2
+Flask-Cors==4.0.0
+flask-swagger-ui==4.11.1
+itsdangerous==2.1.2
+Jinja2==3.1.3
+MarkupSafe==2.1.5
+schedule==1.2.1
+Werkzeug==3.0.1
+
 
 ## Observações
 
