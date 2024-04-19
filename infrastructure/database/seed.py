@@ -23,8 +23,8 @@ class Seed:
         
         first_portion_detail = PortionDetail(Helper.get_new_id(), 'cafe da manha', 200, '09:00', food_routine.id)
         second_portion_detail = PortionDetail(Helper.get_new_id(), 'almoco', 200, '13:00', food_routine.id)
-        third_portion_detail = PortionDetail(Helper.get_new_id(), 'janta', 200, '20:00', food_routine.id)
-        fourth_portion_detail = PortionDetail(Helper.get_new_id(), 'ceia', 200, '23:43', food_routine.id)
+        third_portion_detail = PortionDetail(Helper.get_new_id(), 'janta', 230, '21:37', food_routine.id)
+        fourth_portion_detail = PortionDetail(Helper.get_new_id(), 'ceia', 500, '21:57', food_routine.id)
         
         first_portion_detail.add()
         second_portion_detail.add()
